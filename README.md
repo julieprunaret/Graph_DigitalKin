@@ -15,7 +15,7 @@ Please run the Application
 in your terminal
 
 ```
-npm run start
+npm run dev
 ```
 
 ## Description
