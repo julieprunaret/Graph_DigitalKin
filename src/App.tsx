@@ -1,6 +1,6 @@
 import useFetch from "./utils/Hooks/useFetch";
 import "./App.css";
-import { NewDataType } from "../types";
+import { NormalizeDatasType } from "../types";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -17,7 +17,10 @@ function App() {
   } = useFetch("nodes");
 
   // for creating the D3.js, we need an array "data" with two objects : nodes and links
-  const [newData, setNewData] = useState<NewDataType>({ nodes: [], links: [] });
+  const [normalizeDatas, setNormalizeDatas] = useState<NormalizeDatasType>({
+    nodes: [],
+    links: [],
+  });
 
   useEffect(() => {
     // we check if all datas are fetched and there is no error
@@ -29,10 +32,24 @@ function App() {
       !nodesError &&
       !linksError
     ) {
+      //creation of an array for D3.js
+      // Transformation du tableau
+      const setNormalizeLinks = linksData.map((obj) => {
+        return {
+          target: obj.consumerAgentId,
+          id: obj.id,
+          source: obj.providerAgentId,
+        };
+      });
+      const setNormalizeNodes = nodesData.map((obj) => {
+        return {
+          id: obj.id,
+        };
+      });
       // we can create the array with 2 objects and update datas
-      setNewData({
-        nodes: [...nodesData],
-        links: [...linksData],
+      setNormalizeDatas({
+        nodes: [...setNormalizeNodes],
+        links: [...setNormalizeLinks],
       });
     }
   }, [
@@ -44,20 +61,9 @@ function App() {
     linksError,
   ]);
 
-  return (
-    <div>
-      {isLinksLoading ? (
-        <p>chargement...</p>
-      ) : (
-        nodesData &&
-        newData.links.map((link) => (
-          <div key={link.id}>
-            <span>{link.agentFunction}</span>
-          </div>
-        ))
-      )}
-    </div>
-  );
+  nodesData && console.log(normalizeDatas);
+
+  return <div></div>;
 }
 
 export default App;

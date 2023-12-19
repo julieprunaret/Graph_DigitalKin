@@ -22,7 +22,7 @@ type setNormalizeLinksType = {
   source: string;
 };
 
-export type NewDataType = {
+export type NormalizeDatasType = {
   nodes: setNormalizeNodesType[];
   links: setNormalizeLinksType[];
 };
@@ -30,5 +30,5 @@ export type NewDataType = {
 export type NetworkDiagramType = {
   width: number;
   height: number;
-  data: NewDataType;
+  data: NormalizeDatasType;
 };
