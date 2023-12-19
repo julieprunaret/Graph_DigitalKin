@@ -12,7 +12,23 @@ export type FetchDataType = {
   text: string; // Contenu informationnel de l'agent
 };
 
+type setNormalizeNodesType = {
+  id: string;
+};
+
+type setNormalizeLinksType = {
+  target: string;
+  id: string;
+  source: string;
+};
+
 export type NewDataType = {
-  nodes: FetchDataType[];
-  links: FetchDataType[];
+  nodes: setNormalizeNodesType[];
+  links: setNormalizeLinksType[];
+};
+
+export type NetworkDiagramType = {
+  width: number;
+  height: number;
+  data: NewDataType;
 };
