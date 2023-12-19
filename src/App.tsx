@@ -1,44 +1,61 @@
 import useFetch from "./utils/Hooks/useFetch";
 import "./App.css";
+import { NewDataType } from "../types";
+import { useEffect, useState } from "react";
 
 function App() {
-  //fetching datas
   const {
-    data: LinksData,
+    data: linksData,
     isLoading: isLinksLoading,
-    error: LinksError,
+    error: linksError,
   } = useFetch("links");
 
   const {
-    data: NodesData,
+    data: nodesData,
     isLoading: isNodesLoading,
-    error: NodesError,
-  } = useFetch("Nodes");
+    error: nodesError,
+  } = useFetch("nodes");
 
-  if (LinksError) {
-    return <div>Error occurred while fetching Links data.</div>;
-  }
+  // for creating the D3.js, we need an array "data" with two objects : nodes and links
+  const [newData, setNewData] = useState<NewDataType>({ nodes: [], links: [] });
 
-  if (NodesError) {
-    return <div>Error occurred while fetching Nodes data.</div>;
-  }
+  useEffect(() => {
+    // we check if all datas are fetched and there is no error
+    if (
+      nodesData &&
+      linksData &&
+      !isNodesLoading &&
+      !isLinksLoading &&
+      !nodesError &&
+      !linksError
+    ) {
+      // we can create the array with 2 objects and update datas
+      setNewData({
+        nodes: [...nodesData],
+        links: [...linksData],
+      });
+    }
+  }, [
+    nodesData,
+    linksData,
+    isNodesLoading,
+    isLinksLoading,
+    nodesError,
+    linksError,
+  ]);
 
   return (
     <div>
       {isLinksLoading ? (
         <p>chargement...</p>
       ) : (
-        LinksData &&
-        LinksData.map((link) => <div key={link.id}>{link.agentFunction}</div>)
+        nodesData &&
+        newData.links.map((link) => (
+          <div key={link.id}>
+            <span>{link.agentFunction}</span>
+          </div>
+        ))
       )}
-      <div>
-        {isNodesLoading ? (
-          <p>chargement...</p>
-        ) : (
-          NodesData &&
-          NodesData.map((node) => <div key={node.id}>{node.agentFunction}</div>)
-        )}
-      </div>
     </div>
   );
 }

@@ -1,38 +1,29 @@
 import { useEffect, useState } from "react";
-
-// typing datas in an interface
-interface FetchData {
-  agentCharLimit: number; // Nombre de caractères limit de l'agent
-  agentFunction: string; // Nom de l'agent
-  consumerAgentId: string; // Id noeud target
-  id: string; // Id de la donnée
-  instance: string; // Nom du moteur de pensé
-  namespace: string; // Nom du répertoire
-  populationId: string; // Id de la population auquel appartient l'agent
-  providerAgentId: string; // Id Noeud source
-  source: string; // text
-  templateId: string; // Id du template utilisé pour générer l'agent
-  text: string; // Contenu informationnel de l'agent
-}
+import { FetchDataType } from "../../../types";
 
 const useFetch = (fetchedCategory: string) => {
-  const [data, setData] = useState<FetchData[] | null>(null);
+  const [data, setData] = useState<FetchDataType[] | null>(null);
   //if the data take time to arrive
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  // we add a variable to process our two paths (links and nodes)
   const url: string = "http://localhost:3000/" + fetchedCategory;
 
   useEffect(() => {
     if (!url) return;
     async function fetchData() {
       try {
+        // fetching datas
         const response = await fetch(url);
+        //json format management
         const data = await response.json();
         setData(data);
       } catch (err) {
+        //error management
         console.log(err);
         setError(true);
       } finally {
+        //load management
         setIsLoading(false);
       }
     }
