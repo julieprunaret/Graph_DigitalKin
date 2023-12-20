@@ -1,4 +1,4 @@
-export type FetchDataType = {
+export interface FetchDataType {
   agentCharLimit: number; // Nombre de caractères limit de l'agent
   agentFunction: string; // Nom de l'agent | nom du noeud
   consumerAgentId: string; // Id noeud target
@@ -10,25 +10,31 @@ export type FetchDataType = {
   source: string; // text
   templateId: string; // Id du template utilisé pour générer l'agent
   text: string; // Contenu informationnel de l'agent
-};
+}
 
-type setNormalizeNodesType = {
+export interface NodeType extends d3.SimulationNodeDatum {
   id: string;
-};
+  group: string;
+}
 
-type setNormalizeLinksType = {
-  target: string;
+export interface LinkType extends d3.SimulationLinkDatum<Node> {
+  target: string | any;
   id: string;
-  source: string;
-};
+  source: string | any;
+}
 
-export type NormalizeDatasType = {
-  nodes: setNormalizeNodesType[];
-  links: setNormalizeLinksType[];
-};
+export interface NormalizeDatasType {
+  nodes: NodeType[];
+  links: LinkType[];
+}
 
-export type NetworkDiagramType = {
+export interface NetworkDiagramType {
   width: number;
   height: number;
   data: NormalizeDatasType;
-};
+}
+
+export interface DataContextType {
+  x: number;
+  y: number;
+}
