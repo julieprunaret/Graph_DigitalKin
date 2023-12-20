@@ -13,6 +13,7 @@ const useFetch = (fetchedCategory: string) => {
     if (!url) return;
     async function fetchData() {
       try {
+        setIsLoading(true);
         // fetching datas
         const response = await fetch(url);
         //json format management
