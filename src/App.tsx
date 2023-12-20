@@ -1,5 +1,5 @@
 import useFetch from "./utils/Hooks/useFetch";
-import "./App.css";
+import "./App.scss";
 import { NormalizeDatasType } from "../types";
 import { useEffect, useState } from "react";
 import NetworkDiagram from "./components/NetworkDiagram/NetworkDiagram";
@@ -64,7 +64,7 @@ function App() {
   ]);
 
   return (
-    <>
+    <div className="graph">
       {!isLinksLoading &&
       normalizeDatas.links.length &&
       normalizeDatas.nodes.length ? (
@@ -72,7 +72,7 @@ function App() {
       ) : (
         <p>chargement...</p>
       )}
-    </>
+    </div>
   );
 }
 

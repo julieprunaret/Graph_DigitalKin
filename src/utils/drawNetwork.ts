@@ -31,7 +31,7 @@ export const drawNetwork = (
     context.beginPath();
     context.moveTo(node.x + RADIUS, node.y);
     context.arc(node.x, node.y, RADIUS, 0, 2 * Math.PI);
-    context.fillStyle = "#cb1dd1";
+    context.fillStyle = "#162037";
     context.fill();
   });
 };
