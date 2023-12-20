@@ -2,6 +2,7 @@ import useFetch from "./utils/Hooks/useFetch";
 import "./App.css";
 import { NormalizeDatasType } from "../types";
 import { useEffect, useState } from "react";
+import NetworkDiagram from "./components/NetworkDiagram/NetworkDiagram";
 
 function App() {
   const {
@@ -44,6 +45,7 @@ function App() {
       const setNormalizeNodes = nodesData.map((obj) => {
         return {
           id: obj.id,
+          group: obj.agentFunction,
         };
       });
       // we can create the array with 2 objects and update datas
@@ -61,9 +63,17 @@ function App() {
     linksError,
   ]);
 
-  nodesData && console.log(normalizeDatas);
-
-  return <div></div>;
+  return (
+    <>
+      {!isLinksLoading &&
+      normalizeDatas.links.length &&
+      normalizeDatas.nodes.length ? (
+        <NetworkDiagram data={normalizeDatas} width={400} height={400} />
+      ) : (
+        <p>chargement...</p>
+      )}
+    </>
+  );
 }
 
 export default App;
