@@ -14,8 +14,6 @@ function NetworkDiagram({ width, height, data }: NetworkDiagramType) {
 
   useEffect(() => {
     if (links.length && nodes.length) {
-      console.log("link", links);
-      console.log(nodes);
       // set dimension of the canvas element
       const canvas = canvasRef.current;
       const context = canvas?.getContext("2d");
@@ -39,7 +37,6 @@ function NetworkDiagram({ width, height, data }: NetworkDiagramType) {
         // at each iteration of the simulation, draw the network diagram with the new node positions
         //on("tick"...) is from D3js
         .on("tick", () => {
-          console.log(links);
           drawNetwork(context, width, height, nodes, links);
         });
     }

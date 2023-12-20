@@ -9,17 +9,14 @@ export const drawNetwork = (
   nodes: NodeType[],
   links: LinkType[]
 ) => {
-  // console.log("hello");
   context.clearRect(0, 0, width, height);
 
   // Draw the links first
   links.forEach((link) => {
-    // console.log("LE LINK:", link);
     context.beginPath();
     context.moveTo(link.source.x, link.source.y);
     context.lineTo(link.target.x, link.target.y);
     context.stroke();
-    // console.log("LE LINK:", link.source.x);
   });
 
   // Draw the nodes
